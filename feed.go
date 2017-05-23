@@ -32,7 +32,7 @@ import (
 	"strings"
 	"time"
 
-	xmlx "github.com/jteeuwen/go-pkg-xmlx"
+	xmlx "github.com/beatyrm/go-pkg-xmlx"
 )
 
 type UnsupportedFeedError struct {
