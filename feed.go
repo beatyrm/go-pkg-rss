@@ -354,6 +354,21 @@ func (this *Feed) GetVersionInfo(doc *xmlx.Document) (ftype string, fversion [2]
 		return
 	}
 
+	if node = doc.SelectNode("", "xml"); node != nil {
+		ftype = "rss"
+		major := 0
+		minor := 0
+		version := node.As("", "version")
+		p := strings.Index(version, ".")
+		if p != -1 {
+			major, _ = strconv.Atoi(version[0:p])
+			minor, _ = strconv.Atoi(version[p+1 : len(version)])
+		}
+		fversion = [2]int{major, minor}
+		return
+	}
+
+
 	// issue#5: Some documents have an RDF root node instead of rss.
 	if node = doc.SelectNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "RDF"); node != nil {
 		ftype = "rss"
